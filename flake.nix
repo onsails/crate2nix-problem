@@ -33,9 +33,11 @@
           inherit pkgs; 
           defaultCrateOverrides = pkgs.defaultCrateOverrides // {
             bzip2-sys = attrs: {
-              buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
-                CoreFoundation
-              ];
+              buildInputs = 
+              with pkgs;
+                stdenv.lib.optional stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+                  CoreFoundation
+                ]);
             };
           };
         };
